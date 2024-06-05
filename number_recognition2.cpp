@@ -66,7 +66,7 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
             clearimage();
         }
         else if (run_rect.contains(Point(x, y))) {
-            cout << "Run ¹öÆ° Å¬¸¯µÊ" << endl;
+            cout << "Run ë²„íŠ¼ í´ë¦­ë¨" << endl;
         }
         else if (exit_rect.contains(Point(x, y))) {
             exitProgram();
@@ -78,40 +78,40 @@ void onMouse(int event, int x, int y, int flags, void* userdata) {
 }
 void saveimage() {
     string save_name;
-    cout << "ÆÄÀÏ¸í ÀÔ·Â:";
+    cout << "íŒŒì¼ëª… ìž…ë ¥:";
     cin >> save_name;
     Mat mat500 = mat(Rect(2, 2, 496, 496));
     resize(mat500, mat500, Size(500, 500));
     imwrite(save_name, mat500);
-    cout << save_name << "ÆÄÀÏÀÌ ÀúÀåµÊ" << endl;
+    cout << save_name << "íŒŒì¼ì´ ì €ìž¥ë¨" << endl;
 }
 void loadimage() {
     string load_name;
-    cout << "ÆÄÀÏ¸í ÀÔ·Â:";
+    cout << "íŒŒì¼ëª… ìž…ë ¥:";
     cin >> load_name;
     Mat load_mat = imread(load_name, IMREAD_COLOR);
     if (load_mat.empty()) {
-        cout << "ÆÄÀÏÀ» ºÒ·¯¿À´Âµ¥ ½ÇÆÐÇß½À´Ï´Ù: " << load_name << endl;
+        cout << "íŒŒì¼ì„ ë¶ˆëŸ¬ì˜¤ëŠ”ë° ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤: " << load_name << endl;
     }
     else {
-        cout << load_name << " ÆÄÀÏÀ» ºÒ·¯¿È" << endl;
+        cout << load_name << " íŒŒì¼ì„ ë¶ˆëŸ¬ì˜´" << endl;
         Rect load_rect(Point(0, 0), load_mat.size());
         load_mat.copyTo(mat(load_rect));
-        drawUI(mat); // UI ´Ù½Ã ±×¸®±â
+        drawUI(mat); // UI ë‹¤ì‹œ ê·¸ë¦¬ê¸°
         imshow("mat", mat);
     }
 }
 void clearimage() {
-    cout << "ÀÔ·ÂÃ¢ »èÁ¦µÊ" << endl;
-    mat = Mat(500, 700, CV_8UC3, Scalar(255, 255, 255));
+    cout << "ìž…ë ¥ì°½ ì‚­ì œë¨" << endl;
+    mat = Mat(500, 900, CV_8UC3, Scalar(255, 255, 255));
     drawUI(mat);
     imshow("mat", mat);
 }
 void exitProgram() {
-    cout << "ÇÁ·Î±×·¥ Á¾·á" << endl;
+    cout << "í”„ë¡œê·¸ëž¨ ì¢…ë£Œ" << endl;
     destroyAllWindows();
 }
 void feature1() {
-    cout << "feature1 ¹öÆ° Å¬¸¯ µÊ" << endl;
+    cout << "feature1 ë²„íŠ¼ í´ë¦­ ë¨" << endl;
 
 }
