@@ -23,7 +23,7 @@ int main(void) {
 }
 void drawUI(Mat& mat) {
     rectangle(mat, Rect(0, 0, 699, 499), Scalar(0, 0, 0), 2);
-    string cha[] = { "Save", "Load", "Clear", "Run", "Exit" ,"feature1"};
+    string cha[] = { "Save", "Load", "Clear", "Run", "Exit" ,"feature1" };
     for (int i = 0; i < 5; i++) {
         rectangle(mat, Rect(500, i * 100, 200, 100), Scalar(0, 0, 0), 2);
         rectangle(mat, Rect(700, i * 100, 200, 100), Scalar(0, 0, 0), 2);
@@ -112,6 +112,30 @@ void exitProgram() {
     destroyAllWindows();
 }
 void feature1() {
-    cout << "feature1 버튼 클릭 됨" << endl;
+    Mat feature1;
+    // 검은색 테두리 부분 제외
+    feature1 = mat(Rect(2, 2, 496, 496));
 
+    Mat gray;
+    // 그레이 영상 변경
+    cvtColor(feature1, gray, COLOR_BGR2GRAY);
+
+    Mat bin;
+    // 이진화
+    threshold(gray, bin, 0, 255, THRESH_BINARY_INV);
+
+    Mat labels, stats, centroids;
+    // labels = 레이블 맵 행렬, stats = CV_.., cen = 무게 중심 좌표
+    int cnt = connectedComponentsWithStats(bin, labels, stats, centroids);
+
+    cvtColor(feature1, feature1, COLOR_BGR2BGRA); // BGRA로 변환
+    
+    for (int i = 1; i < cnt; i++) {
+        int* p = stats.ptr<int>(i); // stats 객체의 i행의 시작주소를 리턴
+        if (p[4] < 20) continue;    // 면적 필터링 (p[4]는 면적)
+        rectangle(feature1, Rect(p[0], p[1], p[2], p[3]), Scalar(0,0,255)); // 윤곽선 그리기
+    }
+
+    imshow("feature1", feature1);
 }
+
